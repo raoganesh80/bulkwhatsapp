@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whatsapp | Bulk Messaging</title>
+    <link rel="shortcut icon" href="{% static 'icons/whatsapp.svg' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <style>
+        body{
+            background-color:#eee;
+        }
+        .form-label{
+            margin-left: .5rem;
+            color:#444;
+        }
+        .header-text{
+            color:#444;
+        }
+    </style>
+</head>
+<body>
+    {% if error %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Warning : </strong> {{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+    <center><h1 class="mt-5 mb-4 header-text"><img width="50" class="pb-2" src="{% static 'icons/whatsapp.svg' %}" alt=""> Bulk Messaging</h1></center>
+    <div class="container px-5">
+        <form action="/" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{new_form.as_p}}
+            <div class="mb-3">
+                <label for="document" class="form-label fw-bold ">Upload CSV</label>
+                <input class="form-control" type="file" id='document' name='document' required>
+            </div>
+            <div class="mb-3">
+                <label for="msg" class="form-label fw-bold ">Message Box</label>
+                <textarea class="form-control" id="msg" name="msg" rows="8" aria-label="" required></textarea>
+            </div>
+
+            <button type="submit" class="btn" style="background-color: #4caf50;color:white"><strong>Send Message</strong></button>
+        </form>
+    </div>
+</body>
+</html>
