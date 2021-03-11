@@ -58,8 +58,7 @@ def index(request):
                 msg=msg.replace('<tab>','%09')
                 
                 # link chrome driver
-                driver = webdriver.Chrome(
-                    f"{os.path.join(settings.BASE_DIR, 'driver')}/chromedriver")
+                driver = webdriver.Chrome()
                 # open web.whatsapp.com for QR Code scaning.
                 driver.get("https://web.whatsapp.com/")
                 time.sleep(15)
