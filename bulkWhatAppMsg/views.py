@@ -59,7 +59,7 @@ def index(request):
                 
                 # link chrome driver
                 driver = webdriver.Chrome(
-                    f"{os.path.join(settings.BASE_DIR, 'driver')}/chromedriver.exe")
+                    f"{os.path.join(settings.BASE_DIR, 'driver')}/chromedriver")
                 # open web.whatsapp.com for QR Code scaning.
                 driver.get("https://web.whatsapp.com/")
                 time.sleep(15)
