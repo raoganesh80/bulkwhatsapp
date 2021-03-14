@@ -81,13 +81,13 @@ def index(request):
                 msg = msg.replace('<tab>', '%09')
 
                 # link server chrome driver
-                chrome_options = webdriver.ChromeOptions()
-                chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-                chrome_options.add_argument("--headless")
-                chrome_options.add_argument("--disable-gpu")
-                chrome_options.add_argument("--no-sandbox")
+                # chrome_options = webdriver.ChromeOptions()
+                # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+                # chrome_options.add_argument("--headless")
+                # chrome_options.add_argument("--disable-gpu")
+                # chrome_options.add_argument("--no-sandbox")
                 driver = webdriver.Chrome(executable_path=os.environ.get(
-                    "CHROMEDRIVER_PATH"))
+                    "DRIVER_PATH"))
 
                 # driver = webdriver.Chrome()  # this code will work only local server
 
