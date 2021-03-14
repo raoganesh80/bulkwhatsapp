@@ -15,7 +15,7 @@ import string
 import requests
 import pandas as pd
 
-
+context=None
 def load_QR_Code(request):
     return JsonResponse({'context': context})
 
