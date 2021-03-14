@@ -65,7 +65,7 @@ def index(request):
                 if header_check is False:
                     return render(request, 'index.html', context={"error": "It is necessary to have a phone or mobile column inside the csv file !!!"})
 
-                # print(numbers)
+                print(numbers)
 
                 # input msg box
                 msg = request.POST['msg']
@@ -127,6 +127,7 @@ def index(request):
                             im.save(
                                 f"{os.path.join(settings.BASE_DIR, 'static/images')}/qr_code{counter}.png")
                             context = {'qr_code_url': f'static/images/qr_code{counter}.png','counter':counter}
+                            print(context)
                         if(counter==3):# if 3 qr code images is loaded.
                             break
                         cur_img=get_img
