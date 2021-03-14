@@ -103,11 +103,12 @@ def index(request):
                 cur_img=''
                 counter=0
                 try: 
-                    get_img_div = driver.find_element_by_xpath(
-                        '//*[@id="app"]/div/div/div[2]/div[1]/div/div[2]/div') 
                     # if qr code load loop will execute.
                     while(True):
+                        get_img_div = driver.find_element_by_xpath(
+                            '//*[@id="app"]/div/div/div[2]/div[1]/div/div[2]/div')
                         get_img = get_img_div.get_attribute('data-ref')
+                        print('qr_code : ',get_img)
                         if(cur_img != get_img):# if qr code image change.
                             counter+=1
                             driver.save_screenshot(
