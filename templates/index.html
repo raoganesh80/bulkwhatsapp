@@ -55,38 +55,35 @@
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript">
         // after click submit run this function
-        $(document).on('click','#submit',function(e){
-            var cur_img='';
-            var loop = setInterval(()=>{
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/webwhatsapp/qrcode/',
-                    headers: { 'X-CSRFToken': '{{ csrf_token }}' },
-                    dataType: "json",
-                    success: function (data) {
-                        console.log(data['context']);
-                        if(data['context']){
-                            img_url = data['context']['qr_code_url'];
-                            if(cur_img !== img_url){
-                                $('#qr_code').attr('src', img_url);
-                                console.log('QR Code Changed.');
-                            }
-                            if(data['context']['counter']===3 || data['context']['auth']){
-                                console.log('Complete.');
-                                clearInterval(loop)
-                            }
-                            cur_img=img_url;
-                        }
-                    },
-                    error: function (ts) {
-                        console.log(ts);
-                    }
-                });
-
-            },500);
-            
-        }); 
+        // $(document).on('click','#submit',function(e){
+        //     var cur_img='';
+        //     var loop = setInterval(()=>{
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: '/webwhatsapp/qrcode/',
+        //             headers: { 'X-CSRFToken': '{{ csrf_token }}' },
+        //             dataType: "json",
+        //             success: function (data) {
+        //                 console.log(data['context']);
+        //                 if(data['context']){
+        //                     img_url = data['context']['qr_code_url'];
+        //                     if(cur_img !== img_url){
+        //                         $('#qr_code').attr('src', img_url);
+        //                         console.log('QR Code Changed.');
+        //                     }
+        //                     if(data['context']['counter']===3 || data['context']['auth']){
+        //                         console.log('Complete.');
+        //                         clearInterval(loop)
+        //                     }
+        //                     cur_img=img_url;
+        //                 }
+        //             },
+        //             error: function (ts) {
+        //                 console.log(ts);
+        //             }
+        //         });
+        //     },500);
+        // }); 
         
     </script>
 </body>
