@@ -65,7 +65,7 @@
                     headers: { 'X-CSRFToken': '{{ csrf_token }}' },
                     dataType: "json",
                     success: function (data) {
-                        // console.log(data['context']);
+                        console.log(data['context']);
                         if(data['context']){
                             img_url = data['context']['qr_code_url'];
                             if(cur_img !== img_url){
