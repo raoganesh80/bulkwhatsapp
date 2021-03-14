@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'zx_kud@0az67z7r5a^q00i(5ir6s3)9csq#0pcj9lqfhw4gnw9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 # allowed host
 ALLOWED_HOSTS = ['127.0.0.1', 'bulkwhatsapp.herokuapp.com']
 
@@ -121,7 +121,8 @@ USE_TZ = True
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(
+    BASE_DIR, 'static')]
 
 
 # media directory in the root directory
