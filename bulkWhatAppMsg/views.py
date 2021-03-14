@@ -100,6 +100,7 @@ def index(request):
 
                 time.sleep(5)
                 # QR code snapshot here
+                print(driver.page_source)
                 cur_img=''
                 counter=0
                 try: 
@@ -108,7 +109,7 @@ def index(request):
                         get_img_div = driver.find_element_by_xpath(
                             '//*[@id="app"]/div/div/div[2]/div[1]/div/div[2]/div')
                         get_img = get_img_div.get_attribute('data-ref')
-                        print('qr_code : ',get_img)
+                        # print('qr_code : ',get_img)
                         if(cur_img != get_img):# if qr code image change.
                             counter+=1
                             driver.save_screenshot(
