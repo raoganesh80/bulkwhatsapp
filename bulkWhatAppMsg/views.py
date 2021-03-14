@@ -98,7 +98,7 @@ def index(request):
                     driver.close()
                     return render(request, 'index.html', context={"error": "Whatsapp server dosn't response !!"})
 
-                time.sleep(5)
+                time.sleep(10)
                 # QR code snapshot here
                 print(driver.page_source)
                 cur_img=''
