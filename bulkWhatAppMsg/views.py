@@ -98,16 +98,16 @@ def index(request):
                     driver.close()
                     return render(request, 'index.html', context={"error": "Whatsapp server dosn't response !!"})
 
-                time.sleep(10)
+                time.sleep(3)
                 # QR code snapshot here
                 # print(driver.page_source)
                 cur_img=''
                 counter=0
                 try: 
+                    get_img_div = driver.find_element_by_xpath(
+                        '//*[@id="app"]/div/div/div[2]/div[1]/div/div[2]/div')
                     # if qr code load loop will execute.
                     while(True):
-                        get_img_div = driver.find_element_by_xpath(
-                            '//*[@id="app"]/div/div/div[2]/div[1]/div/div[2]/div')
                         get_img = get_img_div.get_attribute('data-ref')
                         # print('qr_code : ',get_img)
                         if(cur_img != get_img):# if qr code image change.
