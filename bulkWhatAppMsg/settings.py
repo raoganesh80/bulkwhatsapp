@@ -26,7 +26,7 @@ SECRET_KEY = 'zx_kud@0az67z7r5a^q00i(5ir6s3)9csq#0pcj9lqfhw4gnw9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 # allowed host
-ALLOWED_HOSTS = ['127.0.0.1', 'bulkwhatsapp.herokuapp.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

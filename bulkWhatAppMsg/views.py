@@ -65,7 +65,7 @@ def index(request):
                 if header_check is False:
                     return render(request, 'index.html', context={"error": "It is necessary to have a phone or mobile column inside the csv file !!!"})
 
-                print(numbers)
+                # print(numbers)
 
                 # input msg box
                 msg = request.POST['msg']
@@ -81,15 +81,14 @@ def index(request):
                 msg = msg.replace('<tab>', '%09')
 
                 # link chrome driver to server envirorment.
-                # chrome_options = webdriver.ChromeOptions()
-                # chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-                # chrome_options.add_argument("--headless")
-                # chrome_options.add_argument("--disable-dev-shm-usage")
-                # chrome_options.add_argument("--no-sandbox")
-                # driver = webdriver.Chrome(executable_path=os.environ.get(
-                #     "CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+                chrome_options = webdriver.ChromeOptions()
+                chrome_options.binary_location = '/usr/bin/google-chrome'
+                chrome_options.add_argument("--headless")
+                chrome_options.add_argument("--no-sandbox")
+                driver = webdriver.Chrome(
+                    executable_path='/root/demoproject/chromedriver', chrome_options=chrome_options)
 
-                driver = webdriver.Chrome()  # this code will work only local server
+                # driver = webdriver.Chrome()  # this code will work only local server
 
                 # open web.whatsapp.com for QR Code scaning.
                 url = "https://web.whatsapp.com/"
@@ -98,22 +97,22 @@ def index(request):
                     driver.close()
                     return render(request, 'index.html', context={"error": "Whatsapp server dosn't response !!"})
 
-                time.sleep(3)
+                time.sleep(4)
                 # QR code snapshot here
                 # print(driver.page_source)
-                cur_img=''
-                counter=0
-                try: 
+                cur_img = ''
+                counter = 0
+                try:
                     get_img_div = driver.find_element_by_xpath(
                         '//*[@id="app"]/div/div/div[2]/div[1]/div/div[2]/div')
                     # if qr code load loop will execute.
                     while(True):
                         get_img = get_img_div.get_attribute('data-ref')
                         # print('qr_code : ',get_img)
-                        if(cur_img != get_img):# if qr code image change.
-                            counter+=1
+                        if(cur_img != get_img):  # if qr code image change.
+                            counter += 1
                             driver.save_screenshot(
-                                f"{os.path.join(settings.BASE_DIR, 'static/images')}/page_image.png")
+                                f"{os.path.join(settings.BASE_DIR, 'staticfiles/images')}/page_image.png")
                             qrcode_ele = driver.find_element_by_xpath(
                                 '//*[@id="app"]/div/div/div[2]/div[1]/div/div[2]/div')
                             location = qrcode_ele.location
@@ -124,26 +123,28 @@ def index(request):
                             width = location['x']+size['width']+30
                             height = location['y']+size['height']+30
                             im = Image.open(
-                                f"{os.path.join(settings.BASE_DIR, 'static/images')}/page_image.png")
-                            im = im.crop((int(x), int(y), int(width), int(height)))
+                                f"{os.path.join(settings.BASE_DIR, 'staticfiles/images')}/page_image.png")
+                            im = im.crop(
+                                (int(x), int(y), int(width), int(height)))
                             im.save(
-                                f"{os.path.join(settings.BASE_DIR, 'static/images')}/qr_code{counter}.png")
-                            context = {'qr_code_url': f'static/images/qr_code{counter}.png','counter':counter}
-                            print(context)
-                        if(counter==3):# if 3 qr code images is loaded.
+                                f"{os.path.join(settings.BASE_DIR, 'staticfiles/images')}/qr_code{counter}.png")
+                            context = {
+                                'qr_code_url': f'static/images/qr_code{counter}.png', 'counter': counter}
+
+                        if(counter == 3):  # if 3 qr code images is loaded.
                             break
-                        cur_img=get_img
+                        cur_img = get_img
                 except Exception as e:
                     print('Error -> ', type(e).__name__, ': ', __file__,
                           '\nLine no. : ', e.__traceback__.tb_lineno, '\n', e, sep='')
                     print('QR Code not open properly')
 
-                time.sleep(13)
+                time.sleep(15)
                 try:
                     driver.find_element_by_xpath(
-                        '//*[@id="app"]/div/div/div[4]/div/div/div[2]/h1') 
+                        '//*[@id="app"]/div/div/div[4]/div/div/div[2]/h1')
                     # if authentication done.
-                    context['auth']=True
+                    context['auth'] = True
                     # save session id
                     url = driver.command_executor._url
                     session_id = driver.session_id if driver.session_id else None
@@ -181,7 +182,8 @@ def index(request):
                                     (By.XPATH, "/html/body/div[1]/div/div/div[4]/div/footer/div[1]/div[3]/button")))
                                 action_send.click()
                         time.sleep(1)
-                    print(non_whatsapp_no_list if len(non_whatsapp_no_list)!=0 else 'Non whatsapp numbers not found.')
+                    print(non_whatsapp_no_list if len(non_whatsapp_no_list)
+                          != 0 else 'Non whatsapp numbers not found.')
                 except Exception as e:
                     print('Error -> ', type(e).__name__, ': ', __file__,
                           '\nLine no. : ', e.__traceback__.tb_lineno, '\n', e, sep='')
